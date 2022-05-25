@@ -20,6 +20,7 @@ async function run() {
   try {
     await client.connect();
     const productCollection = client.db("car_parts").collection("parts");
+    const productReview = client.db("car_parts").collection("reviews");
 
     app.get("/product", async (req, res) => {
       const query = {};
@@ -28,6 +29,12 @@ async function run() {
       res.send(products);
     });
 
+    app.get("/reviews", async (req, res) => {
+      const query = {};
+      const cursor = productReview.find(query);
+      const reviews = await cursor.toArray();
+      res.send(reviews);
+    });
     app.get("/product/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
