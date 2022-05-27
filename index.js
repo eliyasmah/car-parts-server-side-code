@@ -41,6 +41,13 @@ async function run() {
       const product = await productCollection.findOne(query);
       res.send(product);
     });
+
+    //POST
+    app.post("/reviews", async (req, res) => {
+      const newProduct = req.body;
+      const result = await productReview.insertOne(newProduct);
+      res.send(result);
+    });
   } finally {
   }
 }
