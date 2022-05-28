@@ -29,6 +29,7 @@ async function run() {
       res.send(products);
     });
 
+    //get
     app.get("/reviews", async (req, res) => {
       const query = {};
       const cursor = productReview.find(query);
@@ -46,6 +47,12 @@ async function run() {
     app.post("/reviews", async (req, res) => {
       const newProduct = req.body;
       const result = await productReview.insertOne(newProduct);
+      res.send(result);
+    });
+
+    app.post("/product/:id", async (req, res) => {
+      const OrderProduct = req.body;
+      const result = await productCollection.insertOne(OrderProduct);
       res.send(result);
     });
   } finally {
